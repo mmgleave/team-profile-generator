@@ -9,12 +9,9 @@ const generatePage = require('./src/generatePage.js')
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
 const Manager = require('./lib/Manager.js');
-const { default: generate } = require('@babel/generator');
 
-// empty employees arrays
-const managerArray = [];
-const engineerArray = [];
-const internArray = [];
+// empty employees array
+const employeesArray = [];
 
 // team manager inquirer prompts
 const promptManager = () => {
@@ -60,7 +57,7 @@ const promptManager = () => {
         },
         {
             type: 'input',
-            name: 'officerNumber',
+            name: 'officeNumber',
             message: 'Office Number: ',
             validate: officeNumberInput => {
                 if(officeNumberInput){
@@ -74,7 +71,7 @@ const promptManager = () => {
     ])
 };
 
-// add new manager
+// add new manager and add to array
 const addNewManager = (managerData) => {
     let newManager = new Manager(
         managerData.name,
@@ -82,10 +79,10 @@ const addNewManager = (managerData) => {
         managerData.email,
         managerData.officeNumber
     );
-    managerArray.push(newManager);
+    employeesArray.push(newManager);
 };
 
-// add new engineer
+// add new engineer and add to array
 const addNewEngineer = (engineerData) => {
     let newEngineer = new Engineer(
         engineerData.name,
@@ -93,11 +90,11 @@ const addNewEngineer = (engineerData) => {
         engineerData.email,
         engineerData.github
     );
-    engineerArray.push(newEngineer);
+    employeesArray.push(newEngineer);
     init();
 };
 
-// add new intern
+// add new intern and add to array
 const addNewIntern = (internData) => {
     let newIntern = new Intern (
         internData.name,
@@ -105,7 +102,7 @@ const addNewIntern = (internData) => {
         internData.email,
         internData.school
     );
-    internArray.push(newIntern);
+    employeesArray.push(newIntern);
     init();
 };
 
@@ -254,29 +251,37 @@ const writeToFile = (fileContent) => {
     });
 };
 
+// send employee data to generate page and retrieve html content
+const sendEmployeeData = (employeeData) => {
+    generatePage(employeeData);
+};
+
+// verify add or end application and start new prompts if add
 const verifyAdd = (choice) => {
     if(choice === 'Finished'){
         console.log('Finished adding employees.')
-        console.log(managerArray);
-        console.log(engineerArray);
-        console.log(internArray);
+        return employeesArray;
     } else if(choice === 'Engineer'){
         promptEngineer()
-            .then(engineerData => {
-                addNewEngineer(engineerData)
-            })
+        .then(engineerData => {
+            addNewEngineer(engineerData)
+        })
     } else if(choice === 'Intern'){
         promptIntern()
-            .then(internData => {
-                addNewIntern(internData)
-            })
+        .then(internData => {
+            addNewIntern(internData)
+        })
     }
 };
+
 
 const init = () => {
     addOrEnd()
         .then(response => {
             return verifyAdd(response.addOrEnd)
+        })
+        .then(response => {
+            generatePage(response);
         })
 };
 
@@ -288,3 +293,14 @@ promptManager()
         .catch(err => {
             console.log(err);
         })
+
+
+// // Initialize Application Function
+// function init() {
+//     questions()
+//         .then(answers => {
+//             return generateMarkdown(answers);
+//         })
+//         .then(pageMarkdown => {
+//             writeToFile(pageMarkdown);
+//         })
