@@ -3,15 +3,18 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 
 // require src (generate html functions)
-// const generatePage = require('./src/generatePage.js')
+const generatePage = require('./src/generatePage.js')
 
 // requires for each employee type
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
 const Manager = require('./lib/Manager.js');
+const { default: generate } = require('@babel/generator');
 
-// empty employees array
-const employeesArray = [];
+// empty employees arrays
+const managerArray = [];
+const engineerArray = [];
+const internArray = [];
 
 // team manager inquirer prompts
 const promptManager = () => {
@@ -79,7 +82,7 @@ const addNewManager = (managerData) => {
         managerData.email,
         managerData.officeNumber
     );
-    employeesArray.push(newManager);
+    managerArray.push(newManager);
 };
 
 // add new engineer
@@ -90,7 +93,7 @@ const addNewEngineer = (engineerData) => {
         engineerData.email,
         engineerData.github
     );
-    employeesArray.push(newEngineer);
+    engineerArray.push(newEngineer);
     init();
 };
 
@@ -102,7 +105,7 @@ const addNewIntern = (internData) => {
         internData.email,
         internData.school
     );
-    employeesArray.push(newIntern);
+    internArray.push(newIntern);
     init();
 };
 
@@ -235,11 +238,28 @@ const addOrEnd = () => {
     ])
 };
 
-// generatePage function
+// write to file using file content
+const writeToFile = (fileContent) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./teamProfile.html', fileContent, err => {
+            if(err) {
+                reject(err);
+                return;
+            }
+            resolve({
+                ok: true,
+                message: 'teamProfile.html file created successfully'
+            });
+        });
+    });
+};
 
 const verifyAdd = (choice) => {
     if(choice === 'Finished'){
         console.log('Finished adding employees.')
+        console.log(managerArray);
+        console.log(engineerArray);
+        console.log(internArray);
     } else if(choice === 'Engineer'){
         promptEngineer()
             .then(engineerData => {
