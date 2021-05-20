@@ -1,3 +1,6 @@
+const generateHtml = () => {
+    return `
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,18 +18,13 @@
     <main>
         <div id="team-profile-section">
         </div>
-
+            ${cards.join('')}
         </div>
     </main>    
 </body>
 </html>
 
-<!-- for each card -->
-<div class="card m-5 bg-light" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title text-info">Team Manager Name</h5>
-        <p class="card-subtitle mb-2 text-muted">Manager</p>
-        <a href="mailto:test@gmail.com" class="card-link m-2">manageremail@gmail.com</a></br>
-        <a href="http://github.com/username" class="card-link m-2">Office Number: </a>
-    </div>
-</div>
+    `;
+};
+
+module.exports = generateHtml;

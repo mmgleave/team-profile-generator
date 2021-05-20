@@ -3,12 +3,14 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 
 // require src (generate html functions)
-const generatePage = require('./src/generatePage.js')
+const generateCards = require('./src/generateCards.js')
+const generateHtml = require('./src/generateHtml.js')
 
 // requires for each employee type
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
 const Manager = require('./lib/Manager.js');
+const generateCards = require('./src/generateCards.js');
 
 // empty employees array
 const employeesArray = [];
@@ -238,7 +240,7 @@ const addOrEnd = () => {
 // write to file using file content
 const writeToFile = (fileContent) => {
     return new Promise((resolve, reject) => {
-        fs.writeFile('./teamProfile.html', fileContent, err => {
+        fs.writeFile('./dist/teamProfile.html', fileContent, err => {
             if(err) {
                 reject(err);
                 return;
@@ -249,11 +251,6 @@ const writeToFile = (fileContent) => {
             });
         });
     });
-};
-
-// send employee data to generate page and retrieve html content
-const sendEmployeeData = (employeeData) => {
-    generatePage(employeeData);
 };
 
 // verify add or end application and start new prompts if add
@@ -281,8 +278,23 @@ const init = () => {
             return verifyAdd(response.addOrEnd)
         })
         .then(response => {
-            generatePage(response);
+            return sortData(response)
         })
+        .then(response => {
+            console.log(response);
+        })
+        .then(response => {
+            return generateCards(response)
+        })
+        .then(response => {
+            console.log(response)
+        })
+        // .then(response => {
+        //     return generateHtml(response);
+        // })
+        // .then(fileContent => {
+        //     return writeToFile(fileContent);
+        // })
 };
 
 promptManager()
@@ -293,14 +305,3 @@ promptManager()
         .catch(err => {
             console.log(err);
         })
-
-
-// // Initialize Application Function
-// function init() {
-//     questions()
-//         .then(answers => {
-//             return generateMarkdown(answers);
-//         })
-//         .then(pageMarkdown => {
-//             writeToFile(pageMarkdown);
-//         })
