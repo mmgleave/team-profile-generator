@@ -17,7 +17,7 @@ const generateCards = (employeeData) => {
 const createManagerCard = (employee) => {
     let newCard = 
     `
-<div class="card m-5 bg-light col-2" style="width: 18rem;">
+<div class="card m-2 bg-light col-4" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title text-info">${employee.name}</h5>
         <p class="card-subtitle mb-2 text-muted">Manager  (ID: ${employee.id})</p>
@@ -32,7 +32,7 @@ const createManagerCard = (employee) => {
 const createEngineerCard = (employee) => {
     let newCard = 
     `
-<div class="card m-5 bg-light col-2" style="width: 18rem;">
+<div class="card m-2 bg-light col-4" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title text-info">${employee.name}</h5>
         <p class="card-subtitle mb-2 text-muted">Engineer (ID: ${employee.id})</p>
@@ -47,7 +47,7 @@ const createEngineerCard = (employee) => {
 const createInternCard = (employee) => {
     let newCard = 
     `
-<div class="card m-5 bg-light col-2" style="width: 18rem;">
+<div class="card m-2 bg-light col-4" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title text-info">${employee.name}</h5>
         <p class="card-subtitle mb-2 text-muted">Intern (ID: ${employee.id})</p>
