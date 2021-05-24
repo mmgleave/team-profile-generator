@@ -1,4 +1,6 @@
-const generateHtml = () => {
+const generateHtml = (response) => {
+    const cardsArray = [response];
+
     return `
 
 <!DOCTYPE html>
@@ -15,10 +17,9 @@ const generateHtml = () => {
             <h1 class="text-light">My Team Profile</h1>
         </div>
     </header>
-    <main>
-        <div id="team-profile-section">
-        </div>
-            ${cards.join('')}
+    <main class="container">
+        <div id="team-profile-section" class="row">
+            ${cardsArray}
         </div>
     </main>    
 </body>

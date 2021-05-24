@@ -10,7 +10,6 @@ const generateHtml = require('./src/generateHtml.js')
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
 const Manager = require('./lib/Manager.js');
-const generateCards = require('./src/generateCards.js');
 
 // empty employees array
 const employeesArray = [];
@@ -263,11 +262,13 @@ const verifyAdd = (choice) => {
         .then(engineerData => {
             addNewEngineer(engineerData)
         })
+        return employeesArray;
     } else if(choice === 'Intern'){
         promptIntern()
         .then(internData => {
             addNewIntern(internData)
         })
+        return employeesArray;
     }
 };
 
@@ -277,24 +278,7 @@ const init = () => {
         .then(response => {
             return verifyAdd(response.addOrEnd)
         })
-        .then(response => {
-            return sortData(response)
-        })
-        .then(response => {
-            console.log(response);
-        })
-        .then(response => {
-            return generateCards(response)
-        })
-        .then(response => {
-            console.log(response)
-        })
-        // .then(response => {
-        //     return generateHtml(response);
-        // })
-        // .then(fileContent => {
-        //     return writeToFile(fileContent);
-        // })
+        return employeesArray;
 };
 
 promptManager()
@@ -302,6 +286,15 @@ promptManager()
             return addNewManager(managerData)
         })
         .then(init)
+        .then(initData => {
+            return generateCards(initData)
+        })
+        .then(cards => {
+            return generateHtml(cards);
+        })
+        .then(fileContent => {
+            return writeToFile(fileContent)
+        })
         .catch(err => {
             console.log(err);
         })

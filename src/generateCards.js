@@ -1,29 +1,26 @@
 const cardsArray = [];
 
 const generateCards = (employeeData) => {
-    employeeData.forEach(employee => {
-        switch(employee.getRole()){
+    for(i=0; i<employeeData.length; i++) {
+        switch(employeeData[i].getRole()){
             case 'Manager':
-                createManagerCard(employee);
-                break;
+                createManagerCard(employeeData[i]);
             case 'Engineer':
-                createEngineerCard(employee);
-                break;
+                createEngineerCard(employeeData[i]);
             case 'Intern':
-                createInternCard(employee);
-                break;
+                createInternCard(employeeData[i]);
         }
-    })
+    }
     return cardsArray;
 };
 
 const createManagerCard = (employee) => {
     let newCard = 
     `
-<div class="card m-5 bg-light" style="width: 18rem;">
+<div class="card m-5 bg-light col-2" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title text-info">${employee.name}</h5>
-        <p class="card-subtitle mb-2 text-muted">Manager</p>
+        <p class="card-subtitle mb-2 text-muted">Manager  (ID: ${employee.id})</p>
         <a href="mailto:${employee.email}" class="card-link m-2">${employee.email}</a></br>
         <p class="m-2">Office Number: ${employee.officeNumber}</a>
     </div>
@@ -35,10 +32,10 @@ const createManagerCard = (employee) => {
 const createEngineerCard = (employee) => {
     let newCard = 
     `
-<div class="card m-5 bg-light" style="width: 18rem;">
+<div class="card m-5 bg-light col-2" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title text-info">${employee.name}</h5>
-        <p class="card-subtitle mb-2 text-muted">Engineer</p>
+        <p class="card-subtitle mb-2 text-muted">Engineer (ID: ${employee.id})</p>
         <a href="mailto:${employee.email}" class="card-link m-2">${employee.email}</a></br>
         <a href="http://github.com/${employee.github}" class="card-link m-2">GitHub</a>
     </div>
@@ -50,10 +47,10 @@ const createEngineerCard = (employee) => {
 const createInternCard = (employee) => {
     let newCard = 
     `
-<div class="card m-5 bg-light" style="width: 18rem;">
+<div class="card m-5 bg-light col-2" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title text-info">${employee.name}</h5>
-        <p class="card-subtitle mb-2 text-muted">Engineer</p>
+        <p class="card-subtitle mb-2 text-muted">Intern (ID: ${employee.id})</p>
         <a href="mailto:${employee.email}" class="card-link m-2">${employee.email}</a></br>
         <p class="m-2">School: ${employee.school}</a>
     </div>
@@ -63,3 +60,4 @@ const createInternCard = (employee) => {
 };
 
 module.exports = generateCards;
+
