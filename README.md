@@ -1,35 +1,16 @@
 # team-profile-generator
 
-User Story
+# General Info
+**The Team Profile Generator** is an interactive application where a user can generate a webpage that displays their team's basic info so they have quick access to their emails and GitHub profiles. The application uses command-line user input to generate an html file to view their team on a webpage after generating.
 
-AS A manager
-I WANT to generate a webpage that displays my team's basic info
-SO THAT I have quick access to their emails and GitHub profiles
+## Installation
+Clone the github repository from https://github.com/mmgleave/team-profile-generator.git. 
 
-Acceptance Criteria
+## Usage
+Within vs code open your terminal and type the command 'node index.js' to initialize the application. The applicaton will then prompt the user for their manager information and ask if they want to add new employees. After the user is finsihed adding employees, the application will generate an html file in the /dist directory called "teamProfile.html". This is the site where the user can now view their team profile. The email links and github links are clickable.
 
-GIVEN a command-line application that accepts user input
+## Walkthrough Video
 
-WHEN I am prompted for my team members and their information
-THEN an HTML file is generated that displays a nicely formatted team roster based on user input
 
-WHEN I click on an email address in the HTML
-THEN my default email program opens and populates the TO field of the email with the address
-
-WHEN I click on the GitHub username
-THEN that GitHub profile opens in a new tab
-
-<!-- WHEN I start the application
-THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number -->
-
-WHEN I enter the team manager’s name, employee ID, email address, and office number
-THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-
-WHEN I select the engineer option
-THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-
-WHEN I select the intern option
-THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
-
-WHEN I decide to finish building my team
-THEN I exit the application, and the HTML is generated
+## Contributors
+Michelle Gleave (github username: mmgleave)
